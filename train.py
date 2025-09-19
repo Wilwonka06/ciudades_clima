@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import joblib
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
@@ -14,6 +15,7 @@ kmeans = KMeans(n_clusters=3, random_state=42)
 # Estandarizar los datos
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)  
+
 
 #modelar y predecir clusters
 df['cluster'] = kmeans.fit_predict(X_scaled)
@@ -33,3 +35,7 @@ plt.show()
 
 df.info()
 print(df.head(20))
+
+# Guardar el scaler y el modelo
+joblib.dump(scaler, "scaler.pkl")
+joblib.dump(kmeans, "modelo_clima.pkl")
